@@ -6,27 +6,23 @@ using UnityEngine.UI;
 public class RoundCounter : MonoBehaviour
 {
     [Header("Dynamic")]
-    public int round;
+    public int round = 1;
     static private Text _UI_TEXT;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private float roundTimes = 30f;
 
-    // Update is called once per frame
+    void Awake()
+    {
+        _UI_TEXT = GetComponent<Text>();
+
+    }
     void Update()
     {
-      _UI_TEXT = GetComponent<Text>();
-      int remainder = Math.DivRem(Time.time, 30, out quotient); 
-
-        if(remainder == 0)
+        if (Time.time >= roundTimes)
         {
             round += 1;
-            
+            roundTimes += 30f;
 
-        }  
-        _UI_TEXT.text = Time.time.ToString("#");
+        }
+        _UI_TEXT.text = "Round: " + round.ToString("#");
     }
 }
-//"Round:" + round.ToString("#,0"
